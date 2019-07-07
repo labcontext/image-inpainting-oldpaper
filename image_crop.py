@@ -212,7 +212,7 @@ path_origin = os.path.join()
 print(path_origin)
 
 cnt = 0
-for l in file_list:
+for l in tqdm(file_list):
     # a,b,...
     os.chdir(os.path.join(path, l))
     image_list = glob.glob('*.jpg')
