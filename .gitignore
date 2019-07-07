@@ -1,0 +1,7 @@
+*.jpg
+*.pkl
+*.bin
+.vscode
+*.xlsx
+*.png
+.ipynb_checkpoints
