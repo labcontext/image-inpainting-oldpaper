@@ -155,7 +155,7 @@ class ImageChunker(object):
 # cv Version
 
 
-def load_img(filename, size=None, scale=None):
+def load_image(filename, size=None, scale=None):
     img = cv2.imread(filename)
     if size is not None:
         img = img.resize(size, size)
@@ -165,16 +165,18 @@ def load_img(filename, size=None, scale=None):
     return img
 
 
-# PIL version
-
-def load_image(filename, size=None, scale=None):
-    img = Image.open(filename)
-    if size is not None:
-        img = img.resize((size, size), Image.ANTIALIAS)
-    elif scale is not None:
-        img = img.resize(
-            (int(img.size[0] / scale), int(img.size[1] / scale)), Image.ANTIALIAS)
-    return img
+def save_image(filename, chunked_imgs, count=True):
+    # filename : ~~~.jpg
+      # path cropped : global variable
+    assert count is bool
+    if count:
+        os.chdir(path_cropped)
+        for i, img in tqdm(enumerate(range(chunked_imgs.shape[0]))):
+            cv2.imwrite('{0}_{1}'.format(filename, i), chunked_imgs)
+    else:
+        os.chdir(path_cropped2)
+        for i, img in tqdm(enumerate(range(chunked_imgs.shape[0]))):
+            cv2.imwrite('{0}_{1}'.format(filename, i), chunked_imgs)
 
 
 def show_image(img, key=1, ver='file'):
@@ -190,19 +192,18 @@ def show_image(img, key=1, ver='file'):
         cv2.waitKey(key)
 
 
-def save_image(filename, data):
-    img = data.clone().add(1).div(2).mul(255).clamp(0, 255).numpy()
-    img = img.transpose(1, 2, 0).astype("uint8")
-    img = Image.fromarray(img)
-    img.save(filename)
-
+# def save_image(filename, data):
+#     img = data.clone().add(1).div(2).mul(255).clamp(0, 255).numpy()
+#     img = img.transpose(1, 2, 0).astype("uint8")
+#     img = Image.fromarray(img)
+#     img.save(filename)
 
 # local path setting
 path = '/home/ubuntu/context/data'
 print(path)
 
 path_cropped = '/home/enliai/Desktop/context_encoder_pytorch-master_ver_1/dataset/train'
-
+path_cropped2 = '/home/enliai/Desktop/context_encoder_pytorch-master_ver_1/dataset/val'
 # original data path
 os.chdir(path)
 file_list = os.listdir(os.getcwd())
@@ -210,39 +211,34 @@ file_list = os.listdir(os.getcwd())
 path_origin = os.path.join()
 print(path_origin)
 
+cnt = 0
 for l in file_list:
     # a,b,...
     os.chdir(os.path.join(path, l))
     image_list = glob.glob('*.jpg')
-    print(image_list[:6])
+    print(len(image_list))
 
     for i, img in tqdm(enumerate(image_list)):
+        try:
+            image = load_image(img)
+            chunk = ImageChunker(128, 128, overlap=0)
+            results = chunk.dimension_preprocess(image)
+            print("number of one image : ", results.shape[0])
 
-    try:
-        img_temp = cropimage(os.path.join(path_cropped, img))
+            save_image(img, results)
 
-        cv2.imwrite(os.path.join(path_origin, '{}.jpg'.format(
-            os.path.splitext(img)[0])), img_temp)
+            cnt += 1
 
+            if cnt > 50000:
+                save_image(img, results, count=True)
+            else:
+                save_image(img, results, count=False)
 
-os.chdir(path_cropped)
-
-line = int(len(image_list) * 0.7)
-
-
-for i, img in tqdm(enumerate(image_list)):
-
-    try:
-        img_temp = cropimage(os.path.join(path_cropped, img))
-
-        if i < line:
-        cv2.imwrite(os.path.join(path_origin, '{}.jpg'.format(
-            os.path.splitext(img)[0])), img_temp)
-#        else:
- #           cv2.imwrite(os.path.join(os.path.join(
-  #              path, 'context_encoder_pytorch-master_ver_1/dataset/val'), '{}.jpg'.format(os.path.splitext(img)[0])), img_temp)
-    except ValueError as e:
-        print(str(e))
+            if cnt == 70000:
+                break
+        except ValueError as e:
+            print(str(e))
+            cnt += 1
 
 
 # def cropimage(img_name):
