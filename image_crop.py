@@ -190,17 +190,43 @@ def show_image(img, key=1, ver='file'):
         cv2.waitKey(key)
 
 
+def save_image(filename, data):
+    img = data.clone().add(1).div(2).mul(255).clamp(0, 255).numpy()
+    img = img.transpose(1, 2, 0).astype("uint8")
+    img = Image.fromarray(img)
+    img.save(filename)
+
+
 # local path setting
-path = os.getcwd()
+path = '/home/ubuntu/context/data'
 print(path)
 
 path_cropped = '/home/enliai/Desktop/context_encoder_pytorch-master_ver_1/dataset/train'
-path_origin = os.path.join(path_cropped, 'oldDB')
+
+# original data path
+os.chdir(path)
+file_list = os.listdir(os.getcwd())
+
+path_origin = os.path.join()
 print(path_origin)
 
+for l in file_list:
+    # a,b,...
+    os.chdir(os.path.join(path, l))
+    image_list = glob.glob('*.jpg')
+    print(image_list[:6])
+
+    for i, img in tqdm(enumerate(image_list)):
+
+    try:
+        img_temp = cropimage(os.path.join(path_cropped, img))
+
+        cv2.imwrite(os.path.join(path_origin, '{}.jpg'.format(
+            os.path.splitext(img)[0])), img_temp)
+
+
 os.chdir(path_cropped)
-image_list = glob.glob('*.jpg')
-print(image_list[:10])
+
 line = int(len(image_list) * 0.7)
 
 
@@ -209,7 +235,7 @@ for i, img in tqdm(enumerate(image_list)):
     try:
         img_temp = cropimage(os.path.join(path_cropped, img))
 
-#        if i < line:
+        if i < line:
         cv2.imwrite(os.path.join(path_origin, '{}.jpg'.format(
             os.path.splitext(img)[0])), img_temp)
 #        else:
