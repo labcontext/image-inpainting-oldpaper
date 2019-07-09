@@ -168,20 +168,20 @@ def load_image(filename, size=None, scale=None):
 def save_image(filename, chunked_imgs, count=True):
     # filename : ~~~.jpg
       # path cropped : global variable
-    assert count is bool
     if count:
         os.chdir(path_cropped)
         for i, img in tqdm(enumerate(range(chunked_imgs.shape[0]))):
-            cv2.imwrite('{0}_{1}'.format(filename, i), chunked_imgs)
+            cv2.imwrite('{0}_{1}.jpg'.format(
+                os.path.splitext(filename)[0], i), chunked_imgs)
     else:
         os.chdir(path_cropped2)
         for i, img in tqdm(enumerate(range(chunked_imgs.shape[0]))):
-            cv2.imwrite('{0}_{1}'.format(filename, i), chunked_imgs)
+            cv2.imwrite('{0}_{1}.jpg'.format(
+                os.path.splitext(filename)[0], i), chunked_imgs)
 
 
 def show_image(img, key=1, ver='file'):
     # cv2.destroyAllWindows()
-    assert key is int
     if ver == 'file':
         origin = cv2.imread(img, cv2.IMREAD_COLOR)
         cv2.imshow('origin', origin)
@@ -199,46 +199,42 @@ def show_image(img, key=1, ver='file'):
 #     img.save(filename)
 
 # local path setting
-path = '/home/ubuntu/context/data'
+path = '/home/enliai/Desktop/pytorch_tutorial/Image/picture'
 print(path)
 
-path_cropped = '/home/enliai/Desktop/context_encoder_pytorch-master_ver_1/dataset/train'
-path_cropped2 = '/home/enliai/Desktop/context_encoder_pytorch-master_ver_1/dataset/val'
+path_cropped = '/home/enliai/Desktop/pytorch_tutorial/context_encoder_pytorch-master_ver_1/dataset/train'
+path_cropped2 = '/home/enliai/Desktop/pytorch_tutorial/context_encoder_pytorch-master_ver_1/dataset/val'
 # original data path
 os.chdir(path)
 file_list = os.listdir(os.getcwd())
 
-path_origin = os.path.join()
-print(path_origin)
 
 cnt = 0
 for l in tqdm(file_list):
     # a,b,...
-    os.chdir(os.path.join(path, l))
+    path2 = os.path.join(path, l)
+    os.chdir(path2)
     image_list = glob.glob('*.jpg')
     print(len(image_list))
 
     for i, img in tqdm(enumerate(image_list)):
         try:
-            image = load_image(img)
+            image = load_image(os.path.join(path2, img))
             chunk = ImageChunker(128, 128, overlap=0)
             results = chunk.dimension_preprocess(image)
             print("number of one image : ", results.shape[0])
 
-            save_image(img, results)
-
             cnt += 1
 
-            if cnt > 50000:
+            if cnt < 10:
                 save_image(img, results, count=True)
             else:
                 save_image(img, results, count=False)
 
-            if cnt == 70000:
-                break
+                if cnt == 15:
+                    break
         except ValueError as e:
             print(str(e))
-            cnt += 1
 
 
 # def cropimage(img_name):
