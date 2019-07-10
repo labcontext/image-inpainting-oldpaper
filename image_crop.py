@@ -170,14 +170,16 @@ def save_image(filename, chunked_imgs, count=True):
       # path cropped : global variable
     if count:
         os.chdir(path_cropped)
-        for i, img in tqdm(enumerate(range(chunked_imgs.shape[0]))):
+        print(os.getcwd())
+        for i in range(chunked_imgs.shape[0]):
             cv2.imwrite('{0}_{1}.jpg'.format(
-                os.path.splitext(filename)[0], i), chunked_imgs)
+                os.path.splitext(filename)[0], i), chunked_imgs[i])
     else:
         os.chdir(path_cropped2)
-        for i, img in tqdm(enumerate(range(chunked_imgs.shape[0]))):
+        print(os.getcwd())
+        for i in range(chunked_imgs.shape[0]):
             cv2.imwrite('{0}_{1}.jpg'.format(
-                os.path.splitext(filename)[0], i), chunked_imgs)
+                os.path.splitext(filename)[0], i), chunked_imgs[i])
 
 
 def show_image(img, key=1, ver='file'):
