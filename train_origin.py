@@ -25,8 +25,8 @@ parser.add_argument('--dataroot',  default='dataset/train',
 parser.add_argument('--workers', type=int,
                     help='number of data loading workers', default=16)
 parser.add_argument('--batchSize', type=int,
-                    default=32, help='input batch size')
-parser.add_argument('--imageSize', type=int, default=128,   # 128
+                    default=64, help='input batch size')
+parser.add_argument('--imageSize', type=int, default=128,
                     help='the height / width of the input image to network')
 
 parser.add_argument('--nz', type=int, default=100,
@@ -41,7 +41,7 @@ parser.add_argument('--lr', type=float, default=0.0002,
 parser.add_argument('--beta1', type=float, default=0.5,
                     help='beta1 for adam. default=0.5')
 parser.add_argument('--cuda', action='store_true', help='enables cuda')
-parser.add_argument('--ngpu', type=int, default=1,
+parser.add_argument('--ngpu', type=int, default=2,
                     help='number of GPUs to use')
 parser.add_argument('--netG', default='',
                     help="path to netG (to continue training)")
@@ -66,9 +66,9 @@ opt = parser.parse_args()
 print(opt)
 
 try:
-    os.makedirs("result/train/cropped")
-    os.makedirs("result/train/real")
-    os.makedirs("result/train/recon")
+    os.makedirs("result1/train/cropped")
+    os.makedirs("result1/train/real")
+    os.makedirs("result1/train/recon")
     os.makedirs("model")
 except OSError:
     pass
@@ -97,13 +97,13 @@ if opt.dataset in ['imagenet', 'folder', 'lfw']:
                                        (0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
                                ]))
 
-
 elif opt.dataset == 'manual':
     transform = transforms.Compose([transforms.Scale(opt.imageSize),
                                     transforms.CenterCrop(opt.imageSize),
                                     transforms.ToTensor(),
                                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     dataset = dset.ImageFolder(root=opt.dataroot, transform=transform)
+
 
 elif opt.dataset == 'lsun':
     dataset = dset.LSUN(db_path=opt.dataroot, classes=['bedroom_train'],
@@ -177,7 +177,6 @@ print(netD)
 criterion = nn.BCELoss()
 criterionMSE = nn.MSELoss()
 
-
 input_real = torch.FloatTensor(opt.batchSize, 3, opt.imageSize, opt.imageSize)
 input_cropped = torch.FloatTensor(
     opt.batchSize, 3, opt.imageSize, opt.imageSize)
@@ -185,8 +184,8 @@ label = torch.FloatTensor(opt.batchSize)
 real_label = 1
 fake_label = 0
 
-real_center = torch.FloatTensor(
-    opt.batchSize, 3, int(opt.imageSize/4), int(opt.imageSize/4))
+real_center = torch.FloatTensor(opt.batchSize, 3, int(
+    opt.imageSize/2), int(opt.imageSize/2))
 
 if opt.cuda:
     netD.cuda()
@@ -274,8 +273,8 @@ for epoch in range(resume_epoch, opt.niter):
 
         print('[%d/%d][%d/%d] Loss_D: %.4f Loss_G: %.4f / %.4f l_D(x): %.4f l_D(G(z)): %.4f'
               % (epoch, opt.niter, i, len(dataloader),
-                 errD.data[0], errG_D.data[0], errG_l2.data[0], D_x, D_G_z1, ))
-        if i % 150 == 0:
+                 errD.item(), errG_D.item(), errG_l2.item(), D_x, D_G_z1, ))
+        if i % 100 == 0:
             vutils.save_image(real_cpu,
                               'result/train/real/real_samples_epoch_%03d.png' % (epoch))
             vutils.save_image(input_cropped.data,
@@ -289,7 +288,7 @@ for epoch in range(resume_epoch, opt.niter):
     # do checkpointing
     torch.save({'epoch': epoch+1,
                 'state_dict': netG.state_dict()},
-               'model/netG_oldDB.pth')
+               'model/netG_streetview.pth')
     torch.save({'epoch': epoch+1,
                 'state_dict': netD.state_dict()},
                'model/netlocalD.pth')
