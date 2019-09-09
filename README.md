@@ -8,19 +8,19 @@ old paper restore pjt
 # Restoring old-article and old artwork Project with AI
 
 # Project history
-1차적으로 문서를 뉴럴넷으로 학습하여 오래된 문서의 손상된 부분을 복원 
 
 # Related technology
 > image inpainting
 
 # Core concept
 > context-encoder network base line develop
-> image관련 전처리 
+> partical convolution network base line develop
+> preprocessing images
   - 글자 손상 시 복원 => 글자 하나씩 들어가서 학습 가능하게 조정
   - 배경에서도 일부를 복원 => 전체에서 일부 손상된 이미지 학습
- > model 관련 조정
+ > building up model
  
- > loss 관련 조정
+ > setting loss funcition
   
   .....
 
