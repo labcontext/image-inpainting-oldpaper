@@ -17,14 +17,23 @@ old paper restore pjt
 
 # Core concept
  > context-encoder network base line develop
+ 
  ...
+ 
  > partical convolution network base line develop
+ 
  ...
+ 
  > preprocessing images
+ 
  ...
+ 
  > building up model
+ 
  ...
+ 
  > setting loss funcition
+ 
  ...
 
 .....
