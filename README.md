@@ -1,4 +1,7 @@
 # The Code is not ready. The Code would release soon
+# repo is on working
+
+
 # image-inpainting-oldpaper
 old paper restore pjt
 
@@ -13,15 +16,15 @@ old paper restore pjt
 > image inpainting
 
 # Core concept
-> context-encoder network base line develop
-> partical convolution network base line develop
-> preprocessing images
-  - 글자 손상 시 복원 => 글자 하나씩 들어가서 학습 가능하게 조정
-  - 배경에서도 일부를 복원 => 전체에서 일부 손상된 이미지 학습
+ > context-encoder network base line develop
+ ...
+ > partical convolution network base line develop
+ ...
+ > preprocessing images
+ ...
  > building up model
- 
+ ...
  > setting loss funcition
-  
-  .....
+ ...
 
-# repo is on working
+.....
