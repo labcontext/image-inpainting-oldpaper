@@ -5,15 +5,15 @@ old paper restore pjt
 # image-inpainitng-oldpaper
 "old paper recover"
 
-# 고문서 복원 Project
+# restoring old-article and old artwork Project with AI
 
-# 프로젝트 순서
+# project history
 1차적으로 문서를 뉴럴넷으로 학습하여 오래된 문서의 손상된 부분을 복원 
 
-# 관련 기술
+# related technology
 > image inpainting
 
-# repo 중심 내용
+# Core concept
 > context-encoder network base line develop
 > image관련 전처리 
   - 글자 손상 시 복원 => 글자 하나씩 들어가서 학습 가능하게 조정
