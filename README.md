@@ -15,20 +15,20 @@ Sanhee Park(데이터수집, 가공, 실험, 실험결과 정리, 논문작성)
 Wooram Kang(연구주제 제안, 자료조사, 데이터수집, 가공)
 
 
-# image-inpainting-oldpaper
+## image-inpainting-oldpaper
 old paper restore pjt
 
-# image-inpainitng-oldpaper
+## image-inpainitng-oldpaper
 "old paper recover"
 
-# Restoring old-article and old artwork Project with AI
+## Restoring old-article and old artwork Project with AI
 
-# Project history
+## Project history
 
-# Related technology
+## Related technology
 > image inpainting
 
-# Core concept
+## Core concept
  > context-encoder network base line develop
  
  ...
