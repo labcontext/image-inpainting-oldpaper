@@ -4,15 +4,15 @@
 
 Old paper Project Members : 
 
-Insoo Kim(실험결과 정리, 논문작성, 프로젝트관리),
+Insoo Kim(자료조사, 실험결과 정리, 논문작성, 프로젝트관리),
 
-Junhwa Kim(데이터가공, 실험, 실험결과 정리, 논문작성),
+Junhwa Kim(자료조사, 데이터가공, 실험, 실험결과 정리, 논문작성),
 
-Mirae Do(데이터수집, 가공, 실험)
+Mirae Do(자료조사, 데이터수집, 가공, 실험)
 
 Sanhee Park(데이터수집, 가공, 실험, 실험결과 정리, 논문작성)
 
-Wooram Kang(연구주제 제안, 데이터수집, 가공)
+Wooram Kang(연구주제 제안, 자료조사, 데이터수집, 가공)
 
 
 # image-inpainting-oldpaper
