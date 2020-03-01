@@ -4,11 +4,11 @@
 
 Old paper Project Members : 
 
-Insoo Kim, 
-Junhwa Kim,
-Mirae Do,
-Sanhee Park, 
-Wooram Kang
+Insoo Kim(실험결과 정리, 논문작성), 
+Junhwa Kim(실험, 실험결과 정리, 논문작성),
+Mirae Do(데이터수집, 가공, 실험)
+Sanhee Park(데이터수집, 가공, 실험, 실험결과 정리, 논문작성)
+Wooram Kang(연구주제 제안, 데이터수집, 가공)
 
 
 # image-inpainting-oldpaper
