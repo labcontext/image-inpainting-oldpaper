@@ -1,13 +1,13 @@
 # Lab Context (2019) Old paper Restoration project 
 (Repo is on working)
 
----
 
-Old paper Project Members :
-Insoo KIM
-Junhwa Kim
-Mirae Do
-Sanhee Park 
+Old paper Project Members : 
+
+Insoo Kim, 
+Junhwa Kim,
+Mirae Do,
+Sanhee Park, 
 Wooram Kang
 
 
