@@ -1,5 +1,14 @@
-# The Code is not ready. The Code would release soon
-# repo is on working
+# Lab Context (2019) Old paper Restoration project 
+(Repo is on working)
+
+---
+
+Old paper Project Members :
+Insoo KIM
+Junhwa Kim
+Mirae Do
+Sanhee Park 
+Wooram Kang
 
 
 # image-inpainting-oldpaper
